@@ -13,15 +13,15 @@ export class ReadInstructionService {
     let aInstruction = pInstruction.split("\n" || "\r" || "\n\r");
     let returnInstruction: object = {};
     // premiere ligne pour la zone à tondre
-    returnInstruction["sizeZone"] = {
+    returnInstruction['sizeZone'] = {
       x: aInstruction[0].split("")[0],
       y: aInstruction[0].split("")[1]
     };
     // boucle sur la suite des instruction
-    returnInstruction["mowers"] = [];
+    returnInstruction['mowers'] = [];
     for (let i = 1; i < aInstruction.length; i = i + 2) {
       // chaque tondeuse est stocké dans un object
-      returnInstruction["mowers"].push({
+      returnInstruction['mowers'].push({
         name: "mower n°" + nNameOfTheMower,
         color: this.getRandomColor(),
         position: {

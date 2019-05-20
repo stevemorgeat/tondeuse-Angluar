@@ -16,8 +16,8 @@ export class AppComponent {
   // private fakeFileUploaded: string = "55\n44 S\nGADDAAGADAA\n22 N\nAADGGDADGA";
 
   public message: string;
-  public zoneVertiY: Array<number> = [];
-  public zoneHorizX: Array<number> = [];
+  public aZoneVertiY: Array<number> = [];
+  public aZoneHorizX: Array<number> = [];
   public aMowers: Array<object> = [];
   public bCanStarted: boolean = false;
 
@@ -45,8 +45,8 @@ export class AppComponent {
   private resetGarden() {
     this.bCanStarted = false;
     this.message = "";
-    this.zoneHorizX = [];
-    this.zoneVertiY = [];
+    this.aZoneHorizX = [];
+    this.aZoneVertiY = [];
     this.aMowers = [];
   }
 
@@ -80,13 +80,13 @@ export class AppComponent {
     if (this.isGoodInstruction(pInstruction)) {
       let oInstruction: object = this.readService.translateInstruction(pInstruction);
       console.log(oInstruction);
-      for (let x = 0; x <= parseInt(oInstruction["sizeZone"]["x"]); x++) {
-        this.zoneHorizX.push(x);
+      for (let x = 0; x <= parseInt(oInstruction['sizeZone']['x']); x++) {
+        this.aZoneHorizX.push(x);
       }
-      for (let y = parseInt(oInstruction["sizeZone"]["y"]); y >= 0; y--) {
-        this.zoneVertiY.push(y);
+      for (let y = parseInt(oInstruction['sizeZone']['y']); y >= 0; y--) {
+        this.aZoneVertiY.push(y);
       }
-      this.aMowers = oInstruction["mowers"];
+      this.aMowers = oInstruction['mowers'];
       console.log(this.aMowers);
       this.snackBar.open("successful reading of instructions! there are " + this.aMowers.length + " mowers", null, {
         duration: 3000,
@@ -102,27 +102,27 @@ export class AppComponent {
     if (this.aMowers && Array.isArray(this.aMowers) && this.aMowers.length > 0) {
       this.bCanStarted = false;
       // timer est incrémenté pour faire demarrer de manière sequentiel les tondeuses, une gestion avec des promesses auraient été possible également
-      let timer = 1
+      let nTimer = 1
       // boucle sur les tondeuses
       for (let y = 0; y < this.aMowers.length; y++) {
-        let mower = this.aMowers[y];
-        if (mower['instruction'] && typeof mower['instruction'] === "string") {
-          console.log('instruction is "' + mower['instruction'] + '"')
-          let aInstruction = mower['instruction'].split('');
+        let oMower = this.aMowers[y];
+        if (oMower['instruction'] && typeof oMower['instruction'] === "string") {
+          console.log('instruction is "' + oMower['instruction'] + '"')
+          let aInstruction = oMower['instruction'].split('');
           for (let i = 0; i < aInstruction.length; i++) {
             const sInstruction = aInstruction[i];
             setTimeout(() => {
-              mower = this.executeService.applyInstruction(sInstruction, mower, this.zoneHorizX.length - 1, this.zoneVertiY.length - 1);
-            }, timer * 1000)
-            timer++
+              oMower = this.executeService.applyInstruction(sInstruction, oMower, this.aZoneHorizX.length - 1, this.aZoneVertiY.length - 1);
+            }, nTimer * 1000)
+            nTimer++
           }
           setTimeout(() => {
-            this.snackBar.open(mower['name'] + " is in position : (" + mower['position']['x'] + "," + mower['position']['y'] + " " + mower['position']['direction'] + ")", null, {
+            this.snackBar.open(oMower['name'] + " is in position : (" + oMower['position']['x'] + "," + oMower['position']['y'] + " " + oMower['position']['direction'] + ")", null, {
               duration: 2000,
             });
-          }, timer * 1000)
+          }, nTimer * 1000)
         } else {
-          this.message += "Can't read instruction of " + mower['name'] + "\n";
+          this.message += "Can't read instruction of " + oMower['name'] + "\n";
         }
       }
     } else {
