@@ -11,8 +11,8 @@
     <button type="button" mat-stroked-button color="primary" (click)="Upload()">Charger le fichier</button>
 <br><br>
 <table>
-  <tr *ngFor="let caseCol of zoneVertiY; let posInY = index">
-    <td *ngFor="let caseligne of zoneHorizX; let posInX = index">
+  <tr *ngFor="let caseCol of aZoneVertiY; let posInY = index">
+    <td *ngFor="let caseligne of aZoneHorizX; let posInX = index">
         <div class="zoneInfo">({{caseligne}},{{caseCol}})</div>
         <div class="mowers" *ngFor="let mower of aMowers">
           <div *ngIf="caseligne == mower['position']['x'] && caseCol == mower['position']['y']"  style.color="{{mower['color']}}">
