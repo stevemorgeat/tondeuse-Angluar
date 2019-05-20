@@ -7,6 +7,7 @@ import {
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 
@@ -24,7 +25,8 @@ import { AppComponent } from './app.component';
    MatButtonModule,
    MatFormFieldModule,
    MatInputModule,
-   MatFileUploadModule
+   MatFileUploadModule,
+   MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -26,4 +26,4 @@
 
 <br><br>
 <p *ngIf="message && message !== ''" >{{message}}</p>
-<button *ngIf="aMowers"  type="button" mat-raised-button color="warn" (click)="startInstruction()">Start Instruction</button>
+<button *ngIf="aMowers"  type="button" mat-raised-button color="warn" (click)="startInstruction()" [disabled]="isCanStart()">Start Instruction</button>
